@@ -19,7 +19,7 @@ namespace AuctionService.Data.Migrations
                     ReservePrice = table.Column<int>(type: "integer", nullable: false),
                     Seller = table.Column<string>(type: "text", nullable: true),
                     Winner = table.Column<string>(type: "text", nullable: true),
-                    SoldAmout = table.Column<int>(type: "integer", nullable: true),
+                    SoldAmount = table.Column<int>(type: "integer", nullable: true),
                     CurrentHighBid = table.Column<int>(type: "integer", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
