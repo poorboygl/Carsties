@@ -41,7 +41,6 @@ namespace AuctionService.Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Seller")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("SoldAmout")
@@ -54,7 +53,6 @@ namespace AuctionService.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Winner")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -86,8 +84,8 @@ namespace AuctionService.Data.Migrations
                     b.Property<string>("Model")
                         .HasColumnType("text");
 
-                    b.Property<string>("Year")
-                        .HasColumnType("text");
+                    b.Property<int>("Year")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -110,8 +108,7 @@ namespace AuctionService.Data.Migrations
 
             modelBuilder.Entity("AuctionService.Entities.Auction", b =>
                 {
-                    b.Navigation("Item")
-                        .IsRequired();
+                    b.Navigation("Item");
                 });
 #pragma warning restore 612, 618
         }
