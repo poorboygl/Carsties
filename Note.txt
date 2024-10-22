@@ -9,3 +9,5 @@ cd src/AuctionService
  dotnet tool update dotnet-ef -g
 
  dotnet ef migrations add "InitialCreate" -o Data/Migrations
+
+ dotnet ef database update
