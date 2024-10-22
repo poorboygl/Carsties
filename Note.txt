@@ -1,0 +1,11 @@
+dotnet new webapi -o src/AuctionService -controllers
+
+dotnet sln add src/AuctionService
+
+cd src/AuctionService
+
+ dotnet tool list -g
+ dotnet tool install dotnet-ef -g
+ dotnet tool update dotnet-ef -g
+
+ dotnet ef migrations add "InitialCreate" -o Data/Migrations
