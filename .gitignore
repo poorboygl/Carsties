@@ -2,3 +2,6 @@ bin
 obj
 src/AuctionService/obj
 src/AuctionService/bin
+
+src/SearchService/obj
+src/SearchService/bin

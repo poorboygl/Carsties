@@ -13,3 +13,7 @@ cd src/AuctionService
  dotnet ef database update
 
  dotnet ef database drop
+
+ dotnet new webapi -o src/SearchService -controllers
+
+ dotnet sln add src/SearchService
