@@ -23,3 +23,5 @@ dotnet new classlib -o src/Contracts
 dotnet sln add src/Contracts
 
 dotnet add reference ../../src/Contracts
+
+dotnet ef migrations add Outbox
