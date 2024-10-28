@@ -1,0 +1,332 @@
+1
+00:00:00,000 --> 00:00:00,000
+Okay.
+
+2
+00:00:00,000 --> 00:00:06,000
+Hopefully you gave that a go and you got success with your tests when you ran the checkpoint test inside
+
+3
+00:00:06,000 --> 00:00:07,000
+here.
+
+4
+00:00:07,000 --> 00:00:08,000
+If you didn't, don't worry.
+
+5
+00:00:08,000 --> 00:00:11,000
+I'm going to go through what I did to get that working.
+
+6
+00:00:11,000 --> 00:00:18,000
+So starting off in the auctions controller from the auction service, of course, we need to add the
+
+7
+00:00:18,000 --> 00:00:27,000
+publish endpoint so that when we update the auction, we publish that endpoint and I don't need that
+
+8
+00:00:27,000 --> 00:00:31,000
+auction updated there because the publish knows what type this is going to be.
+
+9
+00:00:31,000 --> 00:00:38,000
+But I've got a mapping in here for the auction updated to go from the auction entity to the auction
+
+10
+00:00:38,000 --> 00:00:39,000
+updated.
+
+11
+00:00:39,000 --> 00:00:46,000
+So I'll just open up the mapping profiles for the auction service and inside here for the auction to
+
+12
+00:00:46,000 --> 00:00:46,000
+the auction.
+
+13
+00:00:46,000 --> 00:00:53,000
+Updated I've also included members because we are updating item properties and then I've got the extra
+
+14
+00:00:53,000 --> 00:01:01,000
+mapping we need to go from the item to the auction updated and then we go ahead and publish this endpoint.
+
+15
+00:01:01,000 --> 00:01:04,000
+Notice that it's before we get to the save changes.
+
+16
+00:01:04,000 --> 00:01:10,000
+So if our service bus was down, then this would still work and it would save that message into the
+
+17
+00:01:10,000 --> 00:01:17,000
+outbox in our database when the service bus comes back up, then of course it would be published and
+
+18
+00:01:17,000 --> 00:01:18,000
+then we just return.
+
+19
+00:01:18,000 --> 00:01:20,000
+Okay, as normal.
+
+20
+00:01:20,000 --> 00:01:28,000
+So from the other side of things, when our search service receives that, then inside the solution,
+
+21
+00:01:28,000 --> 00:01:33,000
+inside search service, I've got an auction updated consumer.
+
+22
+00:01:33,000 --> 00:01:38,000
+Now, this one might have been a bit tricky because I'm not expecting you to know anything about MongoDB
+
+23
+00:01:38,000 --> 00:01:45,000
+entities, so you might have had to spend a bit of time in the docs and trying and failing a few times
+
+24
+00:01:45,000 --> 00:01:50,000
+to get the right configuration to save or update something in a database.
+
+25
+00:01:50,000 --> 00:01:57,000
+I remember when I first gave it a go, I managed to reset all of the properties to Null the first time
+
+26
+00:01:57,000 --> 00:02:03,000
+because I chose to use a short solution rather than modifying only the properties that I was interested
+
+27
+00:02:03,000 --> 00:02:04,000
+in updating.
+
+28
+00:02:04,000 --> 00:02:12,000
+So inside this consumer, then I'm using I mapper inside here, which means I've added a mapping profile
+
+29
+00:02:12,000 --> 00:02:19,000
+inside the search service and let's open up the one from the search service and I've got the auction
+
+30
+00:02:19,000 --> 00:02:21,000
+updated going to the item.
+
+31
+00:02:21,000 --> 00:02:25,000
+So that's being used inside the constructor here.
+
+32
+00:02:25,000 --> 00:02:31,000
+Then I've got just a right line just to let me know that the consuming action is taking place.
+
+33
+00:02:31,000 --> 00:02:39,000
+Then I've got the mapping to go from the message to the item and then I've got the result stored in
+
+34
+00:02:39,000 --> 00:02:41,000
+a result when we do use the update command.
+
+35
+00:02:41,000 --> 00:02:45,000
+So this does give us a result to say that something has happened.
+
+36
+00:02:45,000 --> 00:02:52,000
+So I've used that just to throw an exception if there was a problem updating MongoDB, but in the case
+
+37
+00:02:52,000 --> 00:02:56,000
+that we can update it, then all I've done is I've gone out to use the match command.
+
+38
+00:02:57,000 --> 00:03:01,000
+To find the item from the database.
+
+39
+00:03:01,000 --> 00:03:07,000
+And then I've said to modify only these properties of the item that we got from the database originally
+
+40
+00:03:07,000 --> 00:03:12,000
+and then execute async and then that will update the database.
+
+41
+00:03:12,000 --> 00:03:16,000
+So that takes care of the auction updated consumer.
+
+42
+00:03:16,000 --> 00:03:21,000
+And if we go back to the controller, the delete one is a bit easier.
+
+43
+00:03:22,000 --> 00:03:27,000
+And if we take a look at what's inside here, we don't need a mapper for this because all we've got
+
+44
+00:03:27,000 --> 00:03:31,000
+is an ID that we need to pass for the auction deleted.
+
+45
+00:03:31,000 --> 00:03:38,000
+So what we've got here after the context auctions remove, I've got the publish for the auction deleted
+
+46
+00:03:38,000 --> 00:03:41,000
+and we just need to populate the ID of the auction.
+
+47
+00:03:41,000 --> 00:03:48,000
+And because the auction ID here is good, we need to make this a string because that's what we're sending
+
+48
+00:03:48,000 --> 00:03:51,000
+or have in our auction deleted contract.
+
+49
+00:03:52,000 --> 00:03:54,000
+So no mapping involved on this one.
+
+50
+00:03:54,000 --> 00:04:01,000
+And then inside the search service, what we have is an auction deleted consumer.
+
+51
+00:04:01,000 --> 00:04:06,000
+And all we need to do for this one, we don't need to inject anything here.
+
+52
+00:04:06,000 --> 00:04:13,000
+So I've just got the console right line to say I'm consuming the auction deleted and then simply all
+
+53
+00:04:13,000 --> 00:04:19,000
+we need to do is use the delete async method, pass in the context dot message ID, which is the auction
+
+54
+00:04:19,000 --> 00:04:24,000
+ID and that goes ahead and deletes that item from our Mongo database.
+
+55
+00:04:24,000 --> 00:04:28,000
+Once again, we do get a result back from this method.
+
+56
+00:04:28,000 --> 00:04:30,000
+I'm not quite sure why it is.
+
+57
+00:04:30,000 --> 00:04:35,000
+When we save one we do not get something returned, but we do in this case.
+
+58
+00:04:35,000 --> 00:04:42,000
+And if that doesn't work, once again, I've just used the opportunity to throw a new message exception
+
+59
+00:04:42,000 --> 00:04:44,000
+and just saying problem deleting auction.
+
+60
+00:04:44,000 --> 00:04:48,000
+So once you have those in place, you'll be able to run the test and they all should pass.
+
+61
+00:04:48,000 --> 00:04:49,000
+So congratulations.
+
+62
+00:04:49,000 --> 00:04:55,000
+If you did manage to get that working and if you didn't, don't worry, just update your code to reflect
+
+63
+00:04:55,000 --> 00:05:02,000
+the same as what I've done in here or a version of it and see if you can get the test passing that way.
+
+64
+00:05:02,000 --> 00:05:09,000
+Now, during this section, we've probably got a lot of data inconsistency from various testing and
+
+65
+00:05:09,000 --> 00:05:11,000
+messing around with what we've been doing.
+
+66
+00:05:11,000 --> 00:05:18,000
+So before we do finish this section, I'm just going to stop all of my services, the auction service
+
+67
+00:05:18,000 --> 00:05:19,000
+and the search service.
+
+68
+00:05:19,000 --> 00:05:27,000
+And I'm also going to clear out what's in Docker, compose and restart the services so that the databases
+
+69
+00:05:27,000 --> 00:05:32,000
+are clean and we've got clean databases before we move on to the next section.
+
+70
+00:05:32,000 --> 00:05:37,000
+So I'm just going to do a Docker compose down, which I know is going to remove all the data inside
+
+71
+00:05:37,000 --> 00:05:39,000
+those databases as well.
+
+72
+00:05:39,000 --> 00:05:44,000
+And once they've stopped, I'm just going to execute a docker compose up.
+
+73
+00:05:45,000 --> 00:05:51,000
+To make sure that and to make sure that is up and running.
+
+74
+00:05:51,000 --> 00:05:59,000
+And then I'm just going to simply restart the auction service and I'm going to restart the search service
+
+75
+00:05:59,000 --> 00:06:01,000
+as well.
+
+76
+00:06:02,000 --> 00:06:06,000
+And the databases should now be clean and we should be back to ten.
+
+77
+00:06:06,000 --> 00:06:09,000
+Auctions in each service.
+
+78
+00:06:09,000 --> 00:06:12,000
+So this brings us to the end of this section.
+
+79
+00:06:12,000 --> 00:06:17,000
+So as per usual, at the end of any section, I'm just going to commit my changes into source control.
+
+80
+00:06:17,000 --> 00:06:28,000
+So I'm going to say git add followed by a period and git commit dash m and say end of section four,
+
+81
+00:06:29,000 --> 00:06:32,000
+and then I'm just going to push these changes to GitHub.
+
+82
+00:06:32,000 --> 00:06:37,000
+So I'm just going to say git push origin main and press return.
+
+83
+00:06:38,000 --> 00:06:40,000
+And we'll wrap up with a summary.
+

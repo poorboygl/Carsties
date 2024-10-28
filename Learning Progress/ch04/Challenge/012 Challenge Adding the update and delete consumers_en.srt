@@ -1,0 +1,260 @@
+1
+00:00:00,000 --> 00:00:00,000
+Okay.
+
+2
+00:00:00,000 --> 00:00:04,000
+We've got a couple of consumers to go because we've got a couple of contracts that we haven't dealt
+
+3
+00:00:04,000 --> 00:00:05,000
+with yet.
+
+4
+00:00:05,000 --> 00:00:09,000
+The auction updated and the auction deleted.
+
+5
+00:00:09,000 --> 00:00:17,000
+And if we go to our auctions controller, then we've got the endpoints in here already for this functionality.
+
+6
+00:00:18,000 --> 00:00:24,000
+But we need to publish this to the service bus using the outbox that we've already configured obviously
+
+7
+00:00:24,000 --> 00:00:30,000
+for the auction service and do the same for the delete auction as well.
+
+8
+00:00:30,000 --> 00:00:35,000
+Now your mentor has taken a break and he's decided this is a good opportunity for you to get your hands
+
+9
+00:00:35,000 --> 00:00:38,000
+dirty and give this a go yourself.
+
+10
+00:00:38,000 --> 00:00:44,000
+Now, the goal of this particular challenge is if we go to Postman, we can see in this checkpoint folder
+
+11
+00:00:44,000 --> 00:00:51,000
+there are several tests and we've got one to create a new auction, same as what we've been using before,
+
+12
+00:00:51,000 --> 00:00:54,000
+but with a random first name instead of a grid.
+
+13
+00:00:54,000 --> 00:01:02,000
+And then we've got a test to make sure that was created in the search service, same as before.
+
+14
+00:01:02,000 --> 00:01:05,000
+Then we've got a request to go and update the auction.
+
+15
+00:01:05,000 --> 00:01:11,000
+And this is simply going to populate these properties along with an updated property on the created
+
+16
+00:01:11,000 --> 00:01:12,000
+item model.
+
+17
+00:01:13,000 --> 00:01:20,000
+And then we're going to go and get the updated item from search and expect that to contain updated following
+
+18
+00:01:20,000 --> 00:01:25,000
+that, we're going to delete the auction and then we're going to make sure the auction has been deleted
+
+19
+00:01:25,000 --> 00:01:28,000
+all inside the search service as well.
+
+20
+00:01:28,000 --> 00:01:32,000
+So we don't have consumers for this yet.
+
+21
+00:01:32,000 --> 00:01:37,000
+So if I run these tests and I click on the checkpoint folder and click Run.
+
+22
+00:01:38,000 --> 00:01:41,000
+And we'll look at this 150% used.
+
+23
+00:01:41,000 --> 00:01:45,000
+I wonder if this is going to start failing soon because I keep running these tests, but I'm going to
+
+24
+00:01:45,000 --> 00:01:46,000
+try it again.
+
+25
+00:01:46,000 --> 00:01:51,000
+But if I run this, then it's going to go through and execute all these requests.
+
+26
+00:01:51,000 --> 00:01:58,000
+But I've got two failing tests and this is getting the item updated from the search service and getting
+
+27
+00:01:58,000 --> 00:02:00,000
+the item created.
+
+28
+00:02:01,000 --> 00:02:05,000
+Is returning a result because something hasn't been deleted from the search service.
+
+29
+00:02:05,000 --> 00:02:11,000
+So we want all of these tests to pass and that will be the goal that you're trying to reach for this
+
+30
+00:02:11,000 --> 00:02:13,000
+particular challenge.
+
+31
+00:02:13,000 --> 00:02:19,000
+Now, don't worry if you don't get this working or you get stuck or whatever, you can always refer
+
+32
+00:02:19,000 --> 00:02:23,000
+to the repository, the demo repository on GitHub for this training course to give you a few hints.
+
+33
+00:02:23,000 --> 00:02:30,000
+If you get stuck, you'll also need to review the documentation for MongoDB entities to do things that
+
+34
+00:02:30,000 --> 00:02:31,000
+we haven't done yet.
+
+35
+00:02:31,000 --> 00:02:37,000
+And if we take a look at the entities, then we've got the update options and delete options.
+
+36
+00:02:37,000 --> 00:02:44,000
+So please do take a look at the documentation here to get a few clues about what you can do for this.
+
+37
+00:02:44,000 --> 00:02:53,000
+And just as a small hint, the one that I chose to use to do this is to use the modify only the properties
+
+38
+00:02:53,000 --> 00:02:55,000
+that we're expecting to be updated.
+
+39
+00:02:55,000 --> 00:03:01,000
+Also, you'll need to think about the mapping configuration to go from the auction entity and the update
+
+40
+00:03:01,000 --> 00:03:06,000
+method to the auction updated contracts that we have.
+
+41
+00:03:06,000 --> 00:03:12,000
+So there's a few things to think about and it's a mildly challenging challenge to get this working.
+
+42
+00:03:12,000 --> 00:03:20,000
+So please do give it a go and you'll know you're successful because all of these tests will pass and
+
+43
+00:03:20,000 --> 00:03:22,000
+just to demonstrate that point.
+
+44
+00:03:22,000 --> 00:03:27,000
+So once you've configured your consumers, then what you should be able to do is run the tests inside
+
+45
+00:03:27,000 --> 00:03:28,000
+this checkpoint.
+
+46
+00:03:28,000 --> 00:03:34,000
+But whilst you're going through this and you're creating your consumers, just run these individually
+
+47
+00:03:34,000 --> 00:03:38,000
+just so you can make sure and see what you're doing as you're going through these.
+
+48
+00:03:38,000 --> 00:03:40,000
+Don't be afraid to use the debugger as well.
+
+49
+00:03:40,000 --> 00:03:45,000
+If you want to find out what's going on and what you've got inside your message, what you're doing.
+
+50
+00:03:45,000 --> 00:03:50,000
+Also, whether or not you're using Automapper, have you got that configured correctly, those sort
+
+51
+00:03:50,000 --> 00:03:51,000
+of things.
+
+52
+00:03:51,000 --> 00:03:52,000
+So please give this a go.
+
+53
+00:03:52,000 --> 00:03:58,000
+But don't worry if you get stuck on this because I'm going to go through what I did very shortly to
+
+54
+00:03:58,000 --> 00:03:59,000
+get this done.
+
+55
+00:03:59,000 --> 00:04:05,000
+But what you should find is that once you have this configured, then when you run these requests,
+
+56
+00:04:05,000 --> 00:04:09,000
+then you should find that all of the tests pass and none of them fail.
+
+57
+00:04:10,000 --> 00:04:16,000
+And the auction gets created when we update it in the search service.
+
+58
+00:04:16,000 --> 00:04:23,000
+Then when we get the updated item from that search service, we get that with the updated field, which
+
+59
+00:04:23,000 --> 00:04:24,000
+is what's happening.
+
+60
+00:04:24,000 --> 00:04:28,000
+When we do update the auction, then we go ahead and delete it.
+
+61
+00:04:28,000 --> 00:04:34,000
+And the final test is to make sure that we cannot find it in the database and we get zero results when
+
+62
+00:04:34,000 --> 00:04:37,000
+we search for something with that name.
+
+63
+00:04:37,000 --> 00:04:38,000
+So please do give this a go.
+
+64
+00:04:38,000 --> 00:04:41,000
+Like I say, I'm going to run through it with you anyway afterwards.
+
+65
+00:04:41,000 --> 00:04:47,000
+So good luck with this and I'll see you in the next lesson to show you what I did to achieve this.
+
