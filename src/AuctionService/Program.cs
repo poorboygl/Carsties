@@ -14,6 +14,11 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMassTransit(x => {
     x.UsingRabbitMq((context,cfg) => {
         cfg.ConfigureEndpoints(context);
+        cfg.Host("192.168.50.2", "/", h =>
+        {
+            h.Username("rabbitmq"); 
+            h.Password("rabbitmqpw");
+        });
     });
 });
 
