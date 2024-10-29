@@ -25,3 +25,11 @@ dotnet sln add src/Contracts
 dotnet add reference ../../src/Contracts
 
 dotnet ef migrations add Outbox
+
+https://docs.duendesoftware.com/identityserver/v7
+
+dotnet new install Duende.IdentityServer.Templates
+
+dotnet new isaspid -o src/IdentityService
+
+dotnet sln add src/IdentityService
