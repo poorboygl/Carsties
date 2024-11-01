@@ -38,3 +38,8 @@ dotnet ef migrations add "InitialCreate" -o Data/Migrations
 dotnet tool update dotnet-ef -g
 
 https://jwt.io/
+
+ch06
+dotnet new web -o src/GatewayService
+
+dotnet sln add src/GatewayService
