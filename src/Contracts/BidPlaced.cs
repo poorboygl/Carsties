@@ -9,4 +9,5 @@ public class BidPlaced
     public string Bidder { get; set; }
     public DateTime BidTime { get; set; }
     public string BidStatus { get; set; }
+    public int? Amount { get; set; }
 }
