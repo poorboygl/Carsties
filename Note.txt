@@ -36,3 +36,5 @@ dotnet sln add src/IdentityService
 
 dotnet ef migrations add "InitialCreate" -o Data/Migrations
 dotnet tool update dotnet-ef -g
+
+https://jwt.io/
