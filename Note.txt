@@ -49,3 +49,5 @@ https://microsoft.github.io/reverse-proxy/
 docker build  -f src/AuctionService/Dockerfile -t testing123 .
 
 docker compose up -d
+
+docker-compose down --rmi all
