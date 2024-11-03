@@ -51,3 +51,9 @@ docker build  -f src/AuctionService/Dockerfile -t testing123 .
 docker compose up -d
 
 docker-compose down --rmi all
+
+Appendix A
+dotnet new xunit -o tests/AuctionService.UnitTests
+dotnet sln add tests/AuctionService.UnitTests
+cd tests/AuctionService.UnitTests
+dotnet add reference ../../src/AuctionService
