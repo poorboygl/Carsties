@@ -127,13 +127,27 @@ services:
     ports:
       - "5601:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
       - ConnectionStrings__DefaultConnection=Server=db_PostgreSQL;User Id=root;Password=postgrespw;Database=identity
     depends_on:
       - db_PostgreSQL
     networks:
       - network
+
+  gatewayservice:
+    container_name: GatewayService
+    build:
+      context: .
+      dockerfile: src/GatewayService/Dockerfile
+    ports:
+      - "6001:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - network
+
 
 networks:
   network:
