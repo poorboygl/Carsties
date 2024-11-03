@@ -29,7 +29,7 @@ public class AuctionRepository : IAuctionRepository
                 .FirstOrDefaultAsync(x => x.Id == id);         
     }
 
-    public async Task<Auction> GetAuctionEntityById(Guid id)
+    public async Task<Auction> GetAuctionEntityByIdAsync(Guid id)
     {
             return  await _context.Auctions
                 .Include(x => x.Item)
