@@ -13,7 +13,7 @@ public class DbInitializer
         SeedData(scope.ServiceProvider.GetService<AuctionDbContext>());
     }
 
-    private static void SeedData(AuctionDbContext? context)
+    private static void SeedData(AuctionDbContext context)
     {
         //ADD Code
         if(context == null) return;
