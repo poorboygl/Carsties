@@ -57,3 +57,8 @@ dotnet new xunit -o tests/AuctionService.UnitTests
 dotnet sln add tests/AuctionService.UnitTests
 cd tests/AuctionService.UnitTests
 dotnet add reference ../../src/AuctionService
+
+dotnet new xunit -o tests/AuctionService.IntegrationTests
+dotnet sln add tests/AuctionService.IntegrationTests
+cd tests/AuctionService.IntegrationTests
+dotnet add reference ../../src/AuctionService
