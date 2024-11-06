@@ -20,6 +20,7 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
         _factory = factory;
         _httpClient = factory.CreateClient();
     }
+    
     [Fact]
     public async Task GetAuctions_ShouldReturn3Auctions()
     {
