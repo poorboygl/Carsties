@@ -64,3 +64,8 @@ cd tests/AuctionService.IntegrationTests
 dotnet add reference ../../src/AuctionService
 
 //Method_Scenario_Expected
+
+ch09
+ npx create-next-app@latest 
+
+ npm run dev
