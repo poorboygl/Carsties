@@ -9,7 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace AuctionService.IntegrationTests;
 
-public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsyncLifetime
+[Collection("Shared collection")]
+public class AuctionControllerTests : IAsyncLifetime
 {
     private readonly CustomWebAppFactory _factory;
     private readonly HttpClient _httpClient;
@@ -20,7 +21,7 @@ public class AuctionControllerTests : IClassFixture<CustomWebAppFactory>, IAsync
         _factory = factory;
         _httpClient = factory.CreateClient();
     }
-    
+
     [Fact]
     public async Task GetAuctions_ShouldReturn3Auctions()
     {
