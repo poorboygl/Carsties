@@ -69,3 +69,5 @@ ch09
  npx create-next-app@latest 
 
  npm run dev
+
+https://developer.mozilla.org/en-US/docs/Web/CSS/border-image-width
