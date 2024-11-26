@@ -79,4 +79,5 @@ https://flexboxfroggy.com/
  rfc
 
 npm install react-countdown --save
- https://www.npmjs.com/package/react-countdown
+https://www.npmjs.com/package/react-countdown
+https://transform.tools/json-to-typescript
