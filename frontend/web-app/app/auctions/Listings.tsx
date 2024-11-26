@@ -6,7 +6,7 @@ import { Auction, PagedResult} from '@/types';
 import AppPagination from '../components/AppPagination';
 import { getData } from '../actions/AuctionAction';
 import Filters from './Filters';
-import { userParamsStore } from '@/hooks/useParamsStore';
+import { useParamsStore } from '@/hooks/useParamsStore';
 import { useShallow } from 'zustand/react/shallow';
 import qs from 'query-string';
 
@@ -15,13 +15,13 @@ import qs from 'query-string';
 
 export default  function Listings() {
     const [data, setData] = useState<PagedResult<Auction>>();
-    const params = userParamsStore(useShallow(state => ({
+    const params = useParamsStore(useShallow(state => ({
         pageNumber: state.pageNumber,
         pageSize: state.pageSize,
         searchTerm: state.searchTerm
     })));
 
-    const setParams = userParamsStore(state => state.setParams)
+    const setParams = useParamsStore(state => state.setParams)
     const url = qs.stringifyUrl({url:'', query:params})
 
     function setPageNumber (pageNumber: number){

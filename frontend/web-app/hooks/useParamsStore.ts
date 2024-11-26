@@ -19,7 +19,7 @@ const initialState: State = {
     searchTerm: ''
 }
 
-export const userParamsStore = create<State & Actions>()((set) => ({
+export const useParamsStore = create<State & Actions>()((set) => ({
     ...initialState, 
 
     setParams: (newParams: Partial<State>) => {
@@ -31,5 +31,5 @@ export const userParamsStore = create<State & Actions>()((set) => ({
             }
         })
     },
-    reset: () => {initialState}
+    reset: () => set(initialState)
 }))
