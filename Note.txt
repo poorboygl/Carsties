@@ -84,3 +84,7 @@ https://transform.tools/json-to-typescript
 
 https://flowbite-react.com/
 npm i flowbite-react
+
+https://zustand.docs.pmnd.rs/
+npm install zustand
+npm install query-string
