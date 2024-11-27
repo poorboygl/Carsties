@@ -65,7 +65,7 @@ dotnet add reference ../../src/AuctionService
 
 //Method_Scenario_Expected
 
-ch09
+ch08
  npx create-next-app@latest 
 
  npm run dev
@@ -88,3 +88,10 @@ npm i flowbite-react
 https://zustand.docs.pmnd.rs/
 npm install zustand
 npm install query-string
+
+ch09
+https://authjs.dev/
+
+npm install next-auth@beta
+
+npx auth secret
