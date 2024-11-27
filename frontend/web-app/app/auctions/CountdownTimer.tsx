@@ -20,7 +20,7 @@ const renderer = ({ days, hours, minutes, seconds, completed } :
               rounded-lg 
               flex 
               justify-center
-            ${completed ? 'border-red-600' : (days === 0 && hours < 10 ) 
+            ${completed ? 'bg-red-600' : (days === 0 && hours < 10 ) 
                 ? 'bg-amber-600' : 'bg-green-600'}
         `}>
            {completed ? (<span> Auction Finished</span>) : (
