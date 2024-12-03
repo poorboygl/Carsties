@@ -95,3 +95,5 @@ https://authjs.dev/
 npm install next-auth@beta
 
 npx auth secret
+
+npm install react-hook-form react-datepicker
