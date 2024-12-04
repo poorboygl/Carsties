@@ -50,7 +50,7 @@ async function getHeaders() {
         'Content-type': 'application/json' 
     } as any;
     if(session?.accessToken){
-        headers.Authorization = 'Bear ' + session?.accessToken
+        headers.Authorization = 'Bearer ' + session.accessToken
     }
     return headers;
 }
@@ -67,7 +67,7 @@ async function handleResponse(response: Response) {
             message: response.statusText
         }
 
-        return error;
+        return {error};
     }
 }
 
