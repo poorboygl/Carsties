@@ -99,3 +99,6 @@ npx auth secret
 npm install react-hook-form react-datepicker
 
 https://www.react-hook-form.com/
+
+ch10
+npm install react-hot-toast
