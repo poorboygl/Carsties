@@ -23,11 +23,6 @@ builder.Services.AddMassTransit(x => {
             e.ConfigureConsumer<AuctionCreatedConsumer>(context);
         });
         cfg.ConfigureEndpoints(context);
-        // cfg.Host("192.168.50.2", "/", h =>
-        // {
-        //     h.Username("rabbitmq"); 
-        //     h.Password("rabbitmqpw");
-        // });
         cfg.Host(builder.Configuration["RabbitMq:Host"], "/", h =>
         {
             h.Username(builder.Configuration.GetValue("RabbitMq:Username","rabbitmq")!); 
