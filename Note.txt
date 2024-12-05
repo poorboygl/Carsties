@@ -106,3 +106,5 @@ npm install react-hot-toast
 ch11
 dotnet new webapi -o src/BiddingService -controllers
 dotnet sln add src/BiddingService
+
+dotnet add reference ../../src/Contracts
