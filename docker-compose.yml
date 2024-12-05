@@ -1,28 +1,27 @@
 version: '3.9'
-services:  
+services:
   db_PostgreSQL:
     container_name: auctions_PostgreSQL
     image: postgres:16
     #mem_limit: 256m
     #cpu_shares: 768
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-d", "auctions", "-U", "root"]
+      test: [ "CMD", "pg_isready", "-q", "-d", "auctions", "-U", "root" ]
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: postgrespw
       POSTGRES_DB: auctions
       #PGTZ: Asia/Ho_Chi_Minh
       #TZ: Asia/Ho_Chi_Minh
-    #volumes:
+      #volumes:
       #- /volume1/docker/postgres/postgresql:/var/lib/postgresql@17/data:rw
       #- /volume1/docker/postgres/log:/var/log/postgresql:rw
     ports:
       - 2665:5432
     restart: on-failure:5
-    command: ["postgres", "-c", "log_statement=all", "-c", "logging_collector=on", "-c", "log_directory=/var/log/postgresql", "-c", "log_filename=postgresql-%Y-%m-%d_%H%M%S.log", "-c", "log_timezone='GMT-6'"]
+    command: [ "postgres", "-c", "log_statement=all", "-c", "logging_collector=on", "-c", "log_directory=/var/log/postgresql", "-c", "log_filename=postgresql-%Y-%m-%d_%H%M%S.log", "-c", "log_timezone='GMT-6'" ]
     networks:
       - network
-
 
   pgadmin_PostgreSQL:
     container_name: auctions_PostgreSQL_pgAdmin
@@ -37,14 +36,13 @@ services:
       PGADMIN_LISTEN_PORT: 5050
     ports:
       - 2660:5050
-    #volumes:
+      #volumes:
       #- /volume1/docker/postgres/postgresadmin:/var/lib/pgadmin:rw
     restart: on-failure:5
     depends_on:
       - db_PostgreSQL
     networks:
       - network
-
 
   rabbitmq:
     image: rabbitmq:management
@@ -55,7 +53,7 @@ services:
       - no-new-privileges:true
     restart: on-failure:5
     #volumes:
-      #- /volume1/docker/rabbitmq:/var/lib/rabbitmq:rw
+    #- /volume1/docker/rabbitmq:/var/lib/rabbitmq:rw
     environment:
       - RABBITMQ_DEFAULT_USER=rabbitmq
       - RABBITMQ_DEFAULT_PASS=rabbitmqpw
@@ -65,21 +63,19 @@ services:
     networks:
       - network
 
-
   mongodb_auctions:
-    container_name: auctions_mongodb  
+    container_name: auctions_mongodb
     image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=mongopw
     ports:
       - 27017:27017
-    #volumes:
+      #volumes:
       #- /volume1/docker/mongodb/data:/data/db
     networks:
       - network
 
-        
   auctionservice:
     container_name: AuctionService
     build:
@@ -98,7 +94,6 @@ services:
       - rabbitmq
     networks:
       - network
-
 
   searchservice:
     container_name: SearchService
@@ -134,7 +129,7 @@ services:
       - db_PostgreSQL
     networks:
       - network
-  
+
   gatewayservice:
     container_name: GatewayService
     build:
@@ -151,5 +146,3 @@ services:
 networks:
   network:
     driver: bridge
-
-

@@ -1,34 +1,29 @@
 version: '3.9'
-services:  
+services:
   db_PostgreSQL:
     container_name: auctions_PostgreSQL
     image: postgres:16
     mem_limit: 256m
     cpu_shares: 768
     healthcheck:
-      test: ["CMD", "pg_isready", "-q", "-d", "auctions", "-U", "root"]
+      test: [ "CMD", "pg_isready", "-q", "-d", "auctions", "-U", "root" ]
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: postgrespw
       POSTGRES_DB: auctions
-      #PGTZ: Asia/Ho_Chi_Minh
-      #TZ: Asia/Ho_Chi_Minh
     volumes:
       - /volume1/docker/postgres/postgresql:/var/lib/postgresql@17/data:rw
       - /volume1/docker/postgres/log:/var/log/postgresql:rw
     ports:
       - 2665:5432
     restart: on-failure:5
-    command: ["postgres", "-c", "log_statement=all", "-c", "logging_collector=on", "-c", "log_directory=/var/log/postgresql", "-c", "log_filename=postgresql-%Y-%m-%d_%H%M%S.log", "-c", "log_timezone='GMT-6'"]
+    command: [ "postgres", "-c", "log_statement=all", "-c", "logging_collector=on", "-c", "log_directory=/var/log/postgresql", "-c", "log_filename=postgresql-%Y-%m-%d_%H%M%S.log", "-c", "log_timezone='GMT-6'" ]
     networks:
       - network
-
 
   pgadmin_PostgreSQL:
     container_name: auctions_PostgreSQL_pgAdmin
     image: dpage/pgadmin4:latest
-    #mem_limit: 256m
-    #cpu_shares: 768
     healthcheck:
       test: wget --no-verbose --tries=1 --spider http://localhost:5050
     environment:
@@ -44,7 +39,6 @@ services:
       - db_PostgreSQL
     networks:
       - network
-
 
   rabbitmq:
     image: rabbitmq:management
@@ -65,9 +59,8 @@ services:
     networks:
       - network
 
-
   mongodb_auctions:
-    container_name: auctions_mongodb  
+    container_name: auctions_mongodb
     image: mongo
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
@@ -79,7 +72,6 @@ services:
     networks:
       - network
 
-        
   auctionservice:
     container_name: AuctionService
     build:
@@ -98,7 +90,6 @@ services:
       - rabbitmq
     networks:
       - network
-
 
   searchservice:
     container_name: SearchService
@@ -148,9 +139,6 @@ services:
     networks:
       - network
 
-
 networks:
   network:
     driver: bridge
-
-
