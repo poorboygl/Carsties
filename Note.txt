@@ -102,3 +102,7 @@ https://www.react-hook-form.com/
 
 ch10
 npm install react-hot-toast
+
+ch11
+dotnet new webapi -o src/BiddingService -controllers
+dotnet sln add src/BiddingService
