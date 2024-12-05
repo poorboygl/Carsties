@@ -108,3 +108,5 @@ dotnet new webapi -o src/BiddingService -controllers
 dotnet sln add src/BiddingService
 
 dotnet add reference ../../src/Contracts
+
+https://blog.nonnguyen.com/2020/10/tim-hieu-synchronous-va-asynchronous-trong-javascript-cung-xuan-dieu.html
