@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   db_PostgreSQL:
     container_name: auctions_PostgreSQL
@@ -82,13 +81,19 @@ services:
       context: .
       dockerfile: src/AuctionService/Dockerfile
     ports:
-      - "7001:80"
+      - 7001:80
+      - 7777:7777
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:7777
       - Rabbitmq__Host=rabbitmq
       - ConnectionStrings__DefaultConnection=Server=db_PostgreSQL;User Id=root;Password=postgrespw;Database=auctions
       - IdentityServiceUrl=http://identityservice
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:7777
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=http://+:80
     depends_on:
       - db_PostgreSQL
       - rabbitmq
@@ -140,6 +145,26 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
+    networks:
+      - network
+
+  bidservice:
+    container_name: BidService
+    build:
+      context: .
+      dockerfile: src/BiddingService/Dockerfile
+    ports:
+      - "7003:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - Rabbitmq__Host=rabbitmq
+      - ConnectionStrings__BidDbConnection=mongodb://root:mongopw@mongodb_auctions
+      - IdentityServiceUrl=http://identityservice
+      - GrpcAuction=http://auctionservice:7777
+    depends_on:
+      - mongodb_auctions
+      - rabbitmq
     networks:
       - network
 
