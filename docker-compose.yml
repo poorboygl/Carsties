@@ -168,6 +168,23 @@ services:
     networks:
       - network
 
+
+  notificationservice:
+    container_name: notificationservice
+    build:
+      context: .
+      dockerfile: src/NotificationService/Dockerfile
+    ports:
+      - "7004:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - Rabbitmq__Host=rabbitmq
+    depends_on:
+      - rabbitmq
+    networks:
+      - network
+
 networks:
   network:
     driver: bridge

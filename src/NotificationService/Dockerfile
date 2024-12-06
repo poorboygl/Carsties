@@ -16,18 +16,17 @@ COPY tests/AuctionService.IntegrationTests/AuctionService.IntegrationTests.cspro
 COPY src/BiddingService/BiddingService.csproj src/BiddingService/BiddingService.csproj
 COPY src/NotificationService/NotificationService.csproj src/NotificationService/NotificationService.csproj
 
-
 # Restore package deps
 RUN dotnet restore Carsties.sln
 
 # Copy  the app folders over
-COPY src/BiddingService src/BiddingService
+COPY src/NotificationService src/NotificationService
 COPY src/Contracts src/Contracts
-WORKDIR /src/src/BiddingService
+WORKDIR /src/src/NotificationService
 RUN dotnet publish -c Release -o /app/src/out
 
 #Build runtime image
 FROM mcr.microsoft.com/dotnet/sdk:8.0
 WORKDIR /app
 COPY --from=build /app/src/out .
-ENTRYPOINT [ "dotnet", "BiddingService.dll" ]
+ENTRYPOINT [ "dotnet", "NotificationService.dll" ]
