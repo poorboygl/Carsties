@@ -110,3 +110,7 @@ dotnet sln add src/BiddingService
 dotnet add reference ../../src/Contracts
 
 https://blog.nonnguyen.com/2020/10/tim-hieu-synchronous-va-asynchronous-trong-javascript-cung-xuan-dieu.html
+
+https://learn.microsoft.com/vi-vn/aspnet/core/grpc/?view=aspnetcore-9.0
+
+https://learn.microsoft.com/vi-vn/aspnet/core/grpc/aspnetcore?view=aspnetcore-9.0&tabs=visual-studio
