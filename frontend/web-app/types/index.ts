@@ -22,4 +22,13 @@ export type Auction = {
     imageUrl: string
     id: string
   }
+
+export type Bid = {
+    id: string
+    auction: string
+    bidder: string
+    bidTime: string
+    amount: number
+    bidStatus: string
+}
   
