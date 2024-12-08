@@ -121,3 +121,7 @@ dotnet sln add src/NotificationService
 
 ch13
 npm install date-fns
+
+npm install @microsoft/signalr
+
+npm i signalr
