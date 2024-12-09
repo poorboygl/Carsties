@@ -124,3 +124,8 @@ npm install date-fns
 
 kubectl apply -f postgres-depl.yml
 kubectl apply -f local-pvc.yml
+
+kubectl get pods
+kubectl describe pods postgres-9cbd95468-2c62g
+
+kubectl get services
